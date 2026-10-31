@@ -2,6 +2,7 @@ from datetime import UTC, datetime
 
 import httpx
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.evaluation import router as evaluation_router
 from app.api.reports import router as reports_router
@@ -10,6 +11,13 @@ from app.core.db import init_db
 
 settings = get_settings()
 app = FastAPI(title="RescueBridge AI API", version="0.1.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://127.0.0.1:5173", "http://localhost:5173"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
+    allow_headers=["Content-Type"],
+)
 app.include_router(reports_router)
 app.include_router(evaluation_router)
 
@@ -17,6 +25,19 @@ app.include_router(evaluation_router)
 @app.on_event("startup")
 def startup() -> None:
     init_db()
+
+
+@app.get("/")
+async def root() -> dict[str, object]:
+    """Provide a useful landing response for the backend port."""
+    return {
+        "service": "RescueBridge AI API",
+        "status": "ok",
+        "runtime_location": "HOSTED" if settings.ai_mode == "hosted_gemma" else "LOCAL",
+        "api_health": "/api/v1/health",
+        "runtime_settings": "/api/v1/settings/runtime",
+        "frontend": "http://127.0.0.1:5173/",
+    }
 
 
 @app.get("/api/v1/health")

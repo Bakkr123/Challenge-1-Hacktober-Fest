@@ -32,6 +32,8 @@ hosted Gemma evaluation adapter is now prepared and selected in the local
   `AI_MODE=local` with `LOCAL_MODEL=gemma4:e4b`.
 - Syntax compilation of the current Python source succeeded.
 - Backend dependencies are installed in `.venv`.
+- Frontend dependencies are installed; `npm run build` passes after fixing the
+  Tailwind/PostCSS and TypeScript configuration.
 
 ## Implemented so far
 
@@ -47,6 +49,7 @@ hosted Gemma evaluation adapter is now prepared and selected in the local
 - Basic incident list/detail/update endpoints.
 - Vite/React frontend shell with the required safety banner and local-first
   status language.
+- Vite frontend is currently reachable at `http://127.0.0.1:5173/`.
 - Evidence/documentation placeholders for offline proof, integrations, source
   data, security, demo, and Copilot evidence.
 
@@ -55,8 +58,8 @@ hosted Gemma evaluation adapter is now prepared and selected in the local
 - Alembic migrations and full persistence/API test suite.
 - Ollama Gemma adapter, strict JSON/Pydantic analysis, retry behavior, and
   deterministic triage rules.
-- Hosted API has not been executed because no valid key is configured; the
-  missing-key failure state returns HTTP 412 as designed.
+- Hosted Gemma API is configured and a synthetic request has returned HTTP 200
+  with `runtime_location=HOSTED` and model `gemma-4-26b-a4b-it`.
 - Backend test suite has two tests and passes (`2 passed`); Ruff reports no
   issues for the backend source.
 - Working report form, dashboard, map, offline outbox UI, and Playwright tests.
