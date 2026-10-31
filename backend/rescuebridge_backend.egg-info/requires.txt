@@ -1,0 +1,16 @@
+fastapi<1,>=0.115
+uvicorn[standard]<1,>=0.30
+pydantic<3,>=2.8
+pydantic-settings<3,>=2.4
+sqlalchemy<3,>=2.0
+alembic<2,>=1.13
+httpx<1,>=0.27
+python-multipart<1,>=0.0.9
+pillow<12,>=10
+google-genai<2,>=1.0
+
+[dev]
+pytest<9,>=8
+pytest-asyncio<1,>=0.23
+ruff<1,>=0.6
+mypy<2,>=1.11
